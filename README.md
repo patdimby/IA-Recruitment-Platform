@@ -128,9 +128,9 @@ Système de **ranking** qui classe les candidats par pertinence décroissante.
 │  AI Service      │           │  PostgreSQL      │
 │  (Python)        │←──────────│  Database        │
 │                  │           │                  │
-│ • CVAnalyzer    │           │ • Users          │
-│ • Matcher       │           │ • Jobs           │
-│ • Recommender   │           │ • Metrics        │
+│ • CVAnalyzer     │           │ • Users          │
+│ • Matcher        │           │ • Jobs           │
+│ • Recommender    │           │ • Metrics        │
 └────────┬─────────┘           └──────────────────┘
          │
          ↓
