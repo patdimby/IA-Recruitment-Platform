@@ -41,6 +41,30 @@ class CV:
     availability_immediate: bool
     raw_text: str = "" # Pour simuler le texte du CV
 
+    def __init__(
+        self,
+        id: str,
+        name: str,
+        skills: list[str],
+        years_experience: float,
+        location: LocationEnum,
+        availability_immediate: bool,
+        raw_text: str | None = None
+    ):
+        if years_experience < 0:
+            raise ValueError("years_experience must be >= 0")
+
+        self.id = id
+        self.name = name
+
+        # ✅ NORMALISATION ICI
+        self.skills = [s.lower().strip() for s in skills]
+
+        self.years_experience = years_experience
+        self.location = location
+        self.availability_immediate = availability_immediate
+        self.raw_text = raw_text
+
 @dataclass
 class JobOffer:
     """
@@ -60,3 +84,36 @@ class JobOffer:
     min_years_experience: float
     location: LocationEnum
     remote_allowed: bool
+
+    def __init__(
+        self,
+        id: str,
+        title: str,
+        required_skills: list[str],
+        min_years_experience: float,
+        location: LocationEnum,
+        remote_allowed: bool
+    ):
+        if min_years_experience < 0:
+            raise ValueError("min_years_experience must be >= 0")
+
+        self.id = id
+        self.title = title
+
+        # ✅ NORMALISATION ICI
+        self.required_skills = [s.lower().strip() for s in required_skills]
+
+        self.min_years_experience = min_years_experience
+        self.location = location
+        self.remote_allowed = remote_allowed
+
+    def __post_init__(self):
+        """
+        Méthode appelée automatiquement après la création de l'objet.
+        Normalise les compétences en minuscule et supprime les doublons.
+        """
+        if self.skills:
+            # On convertit tout en minuscule et on supprime les doublons (set)
+            self.skills = list(set(s.lower() for s in self.skills))
+        else:
+            self.skills = []
