@@ -4,7 +4,7 @@
 
 import re
 import os
-from models import LocationEnum, CV
+from src.models import LocationEnum, CV
 from typing import List
 
 # Imports des librairies (gestion d'erreur si non installées)
@@ -26,6 +26,10 @@ class CVAnalyzer:
     Simule l'extraction NLP d'un CV.
     Dans un cas réel, utiliserait spaCy/Transformers ici.
     """    
+    def __init__(self):
+        self.taxonomy = ["python", "java", "sql", "machine learning", "react", "aws", "excel"]
+
+    
     @staticmethod
     def extract_years(text: str) -> float:
         # Recherche basique de patterns "X ans d'expérience"
@@ -33,7 +37,33 @@ class CVAnalyzer:
         if match:
             return float(match.group(1))
         return 0.0
+    
+    def _extract_years(self, text: str) -> float:
+        # Recherche basique de patterns "X ans d'expérience"
+        match = re.search(r'(\d+)\s*(ans|years|\+)', text, re.IGNORECASE)
+        if match:
+            return float(match.group(1))
+        return 0.0
 
+    
+    def _extract_skills(self, text: str) -> List[str]:
+        """
+        Extrait les compétences du texte en se basant sur la taxonomie de l'analyseur.
+        
+        Args:
+            text (str): Texte du CV.
+            
+        Returns:
+            List[str]: Liste des compétences trouvées.
+        """
+        text_lower = text.lower()
+        found_skills = []
+        # On parcourt la taxonomie définie dans __init__
+        for skill in self.taxonomy:
+            if skill in text_lower:
+                found_skills.append(skill)
+        return list(set(found_skills))
+    
     @staticmethod
     def extract_skills(text: str, known_skills_db: List[str]) -> List[str]:
         found_skills = []
@@ -138,6 +168,9 @@ class CVAnalyzer:
         skills = self._extract_skills(text)
         exp = self._extract_years(text)
         loc = self._guess_location(text)
+
+        # Appel correct pour récupérer un Enum
+        loc = self._guess_location(text) 
         
         return CV(
             id=candidate_id,
@@ -150,8 +183,22 @@ class CVAnalyzer:
         )
     
     def _guess_location(self, text: str):
-        # Logique très simple pour l'exemple
-        if "paris" in text.lower(): return "Paris"
-        if "lyon" in text.lower(): return "Lyon"
-        if "remote" in text.lower(): return "Remote"
-        return "Inconnu"
+        """
+        Devine la localisation et retourne un Enum LocationEnum.
+        
+        Args:
+            text (str): Texte du CV.
+            
+        Returns:
+            LocationEnum: L'enum correspondant, ou PARIS par défaut.
+        """
+        text_lower = text.lower()
+        if "paris" in text_lower:
+            return LocationEnum.PARIS
+        if "lyon" in text_lower:
+            return LocationEnum.LYON
+        if "remote" in text_lower or "télétravail" in text_lower:
+            return LocationEnum.REMOTE
+            
+        # Valeur par défaut si rien n'est trouvé
+        return LocationEnum.PARIS 

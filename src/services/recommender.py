@@ -2,7 +2,8 @@
 # 4. Module C: Recommendation System
 # ==========================================
 
-from services.matcher import MatchingEngine
+from src.services.matcher import MatchingEngine
+from src.models import JobOffer
 from typing import List, Dict
 
 

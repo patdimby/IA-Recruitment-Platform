@@ -3,7 +3,7 @@
 # ==========================================
 
 from typing import List, Dict
-from models import LocationEnum
+from src.models import LocationEnum, CV, JobOffer
 
 class MatchingEngine:
     """
