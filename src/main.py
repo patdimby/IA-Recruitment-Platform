@@ -2,12 +2,11 @@
 # 5. Testing & Execution (Main)
 # ==========================================
 
-from dataclasses import dataclass, field
 
-from src.models import JobOffer, LocationEnum
-from src.services.analyzer import CVAnalyzer
-from src.services.matcher import MatchingEngine
-from src.services.recommender import RecommendationSystem
+from models import JobOffer, LocationEnum
+from services.analyzer import CVAnalyzer
+from services.matcher import MatchingEngine
+from services.recommender import RecommendationSystem
 
 if __name__ == "__main__":
     # 1. Setup
