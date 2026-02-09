@@ -2,13 +2,9 @@
 # 5. Testing & Execution (Main)
 # ==========================================
 
-import re
-import math
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional
-from enum import Enum
 
-from src.models import CV, JobOffer, LocationEnum
+from src.models import JobOffer, LocationEnum
 from src.services.analyzer import CVAnalyzer
 from src.services.matcher import MatchingEngine
 from src.services.recommender import RecommendationSystem

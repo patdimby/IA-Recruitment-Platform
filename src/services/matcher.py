@@ -2,9 +2,8 @@
 # 3. Module A: Intelligent Matching Engine
 # ==========================================
 
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional
-from enum import Enum
+from typing import List, Dict
+from src.models import LocationEnum
 
 class MatchingEngine:
     def __init__(self, weights: Dict[str, float] = None):

@@ -113,8 +113,9 @@ class TestMatchingEngine:
             junior_candidate.skills, 
             sample_job_offer.required_skills
         )
-        # 2 compétences trouvées sur 3 requises
-        assert skill_score == pytest.approx(0.66, 0.01)
+        
+        # On attend 0.667 (2/3) avec une tolérance de 0.01 au lieu de 0.66
+        assert skill_score == pytest.approx(0.667, 0.01)
 
     def test_remote_allowed_logic(self, remote_candidate, sample_job_offer):
         """Test que le remote est accepté si l'offre le permet."""

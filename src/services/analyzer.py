@@ -3,10 +3,8 @@
 # ==========================================
 
 import re
-from models import LocationEnum, CV
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional
-from enum import Enum
+from src.models import LocationEnum, CV
+from typing import List
 
 class CVAnalyzer:
     """

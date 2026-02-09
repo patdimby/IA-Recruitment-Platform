@@ -2,12 +2,9 @@
 # 4. Module C: Recommendation System
 # ==========================================
 
-import re
-import math
-from matcher import MatchingEngine
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional
-from enum import Enum
+from src.services.matcher import MatchingEngine
+from typing import List, Dict
+
 
 class RecommendationSystem:
     def __init__(self, matcher: MatchingEngine):
